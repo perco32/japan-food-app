@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dish.name_en }}{% endblock %}
+
+{% block content %}
+    <a href="/">← Back to List</a>
+
+    <h1>{{ dish.name_jp }} ({{ dish.name_en }})</h1>
+    
+    <h3>カテゴリー</h3>
+    <p>
+        {{ dish.category_large }} > {{ dish.category_medium }} > {{ dish.category_small }}
+    </p>
+
+    <h3>品目</h3>
+    <p>{{ dish.item_name_jp }} ({{ dish.item_name_en }})</p>
+
+    <h3>どんな料理？</h3>
+    <p>{{ dish.description_en }}</p>
+
+    <hr>
+
+    <div class="order-card">
+        <h2>指差し注文カード</h2>
+        <p class="order-phrase">{{ dish.order_phrase_jp }}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ small_cat }}{% endblock %}
+
+{% block content %}
+    <a href="/category/{{ large_cat }}/{{ medium_cat }}">← {{ medium_cat }}一覧に戻る</a>
+    <h1>{{ small_cat }}</h1>
+
+    <ul class="dish-list">
+        {% for dish in dishes %}
+            <li>
+                <a href="/dish/{{ dish.id }}">
+                    <strong>{{ dish.name_jp }}</strong> ({{ dish.name_en }})
+                </a>
+                <p>{{ dish.description_en }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

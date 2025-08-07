@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ medium_cat }}{% endblock %}
+
+{% block content %}
+    <a href="/category/{{ large_cat }}">← {{ large_cat }}一覧に戻る</a>
+    <h1>{{ medium_cat }}</h1>
+
+    <div class="category-nav">
+        <h4>Filter by Style/Type</h4>
+        <ul>
+            {% for small_cat in small_categories %}
+                <li>
+                    <a href="/category/{{ large_cat }}/{{ medium_cat }}/{{ small_cat }}">
+                        {{ small_cat }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+    <h2>このカテゴリーの料理</h2>
+    <ul class="dish-list">
+        {% for dish in dishes %}
+            <li>
+                <a href="/dish/{{ dish.id }}">
+                    <strong>{{ dish.name_jp }}</strong> ({{ dish.name_en }})
+                </a>
+                <p>{{ dish.description_en }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
