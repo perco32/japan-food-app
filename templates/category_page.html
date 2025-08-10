@@ -1,33 +1,69 @@
 {% extends "base.html" %}
-
-{% block title %}{{ category_name }}{% endblock %}
-
+{% block title %}{{ current_category['name_' + current_lang] }}{% endblock %}
 {% block content %}
-    <a href="/">← ホームに戻る</a>
-    <h1>Category: {{ category_name }}</h1>
 
-    <div class="category-nav">
-        <h4>Subcategories</h4>
-        <ul>
-            {% for medium_cat in medium_categories %}
-                <li>
-                    <a href="/category/{{ category_name }}/{{ medium_cat }}">
-                        {{ medium_cat }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+    {% if current_category.parent_id %}
+        <a href="/food/{{ current_category.parent_id }}">← {{ ui.back_to_parent }}</a>
+    {% endif %}
+    
+    <div class="header-with-controls">
+        <h1>{{ current_category['name_' + current_lang] }}</h1>
+        <div class="view-switcher">
+            <button id="view-tiles-btn" class="active">{{ ui.view_tiles }}</button>
+            <button id="view-details-btn">{{ ui.view_details }}</button>
+        </div>
     </div>
+
+    <p class="category-description">{{ current_category['description_' + current_lang] }}</p>
     <hr>
-    <h2>このカテゴリーの料理</h2>
-    <ul class="dish-list">
-        {% for dish in dishes %}
-            <li>
-                <a href="/dish/{{ dish.id }}">
-                    <strong>{{ dish.name_jp }}</strong> ({{ dish.name_en }})
-                </a>
-                <p>{{ dish.description_en }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+
+    <div id="view-wrapper" class="view-tiles">
+        
+        {% if child_categories %}
+            <div class="tile-container">
+                {% for food in child_categories %}
+                    <a href="/food/{{ food.id }}" class="tile">
+                        <img src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
+                        
+                        <div class="tile-icon">
+                            {% if food.recipe_url_ja %}
+                                <span>📖</span>
+                            {% else %}
+                                <span>→</span>
+                            {% endif %}
+                        </div>
+                        <div class="tile-caption">
+                            <h3>{{ food['name_' + current_lang] }}</h3>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if child_categories %}
+            <ul class="details-list">
+                {% for food in child_categories %}
+                    <li>
+                        <a href="/food/{{ food.id }}">
+                            <img class="details-img" src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
+                            <div class="details-text">
+                                <h3>
+                                    {# アイコンを追加 #}
+                                    {% if food.recipe_url_ja %}
+                                        <span class="details-icon">📖</span>
+                                    {% else %}
+                                        <span class="details-icon">→</span>
+                                    {% endif %}
+                                    
+                                    {{ food['name_' + current_lang] }}
+                                </h3>
+                                <p>{{ food['description_' + current_lang] }}</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
 {% endblock %}
