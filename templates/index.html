@@ -1,30 +1,15 @@
 {% extends "base.html" %}
-
 {% block title %}Home{% endblock %}
-
 {% block content %}
-    <h1>日本食辞書</h1>
-
+    <h1>{{ ui.home_title }}</h1>
     <div class="tile-container">
-        {% for category in categories %}
-            <a href="/category/{{ category }}" class="tile">
-                <img src="{{ images.get(category, 'https://via.placeholder.com/400x300.png?text=No+Image') }}" alt="{{ category }}">
+        {% for food in foods %}
+            <a href="/food/{{ food.id }}" class="tile">
+                <img src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
                 <div class="tile-caption">
-                    <h3>{{ category }}</h3>
+                    <h3>{{ food['name_' + current_lang] }}</h3>
                 </div>
             </a>
         {% endfor %}
     </div>
-
-    <h2>全ての料理</h2>
-    <ul class="dish-list">
-        {% for dish in dishes %}
-            <li>
-                <a href="/dish/{{ dish.id }}">
-                    <strong>{{ dish.name_jp }}</strong> ({{ dish.name_en }})
-                </a>
-                <p>{{ dish.description_en }}</p>
-            </li>
-        {% endfor %}
-    </ul>
 {% endblock %}

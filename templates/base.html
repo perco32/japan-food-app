@@ -7,8 +7,62 @@
     <title>{% block title %}{% endblock %} - Japanese Food Dictionary</title>
 </head>
 <body>
+
+    <div class="language-selector">
+        <form action="{{ url_for('set_language') }}" method="post">
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <select name="language" onchange="this.form.submit()">
+                {% for lang_code in ui_texts.keys() %}
+                    <option value="{{ lang_code }}" {% if session.language == lang_code or (not session.language and lang_code == 'ja') %}selected{% endif %}>
+                        {{ '日本語' if lang_code == 'ja' else 'English' }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
     <div class="container">
         {% block content %}{% endblock %}
+
+        <div class="footer-nav">
+            <a href="{{ url_for('home') }}" class="btn-home">{{ ui.back_to_home }}</a>
+        </div>
+        </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const viewWrapper = document.getElementById('view-wrapper');
+        const tilesBtn = document.getElementById('view-tiles-btn');
+        const detailsBtn = document.getElementById('view-details-btn');
+
+        if (viewWrapper && tilesBtn && detailsBtn) {
+            
+            const setView = (view) => {
+                if (view === 'details') {
+                    viewWrapper.classList.remove('view-tiles');
+                    viewWrapper.classList.add('view-details');
+                    tilesBtn.classList.remove('active');
+                    detailsBtn.classList.add('active');
+                    localStorage.setItem('viewMode', 'details');
+                } else {
+                    viewWrapper.classList.remove('view-details');
+                    viewWrapper.classList.add('view-tiles');
+                    detailsBtn.classList.remove('active');
+                    tilesBtn.classList.add('active');
+                    localStorage.setItem('viewMode', 'tiles');
+                }
+            };
+
+            tilesBtn.addEventListener('click', () => setView('tiles'));
+            detailsBtn.addEventListener('click', () => setView('details'));
+
+            const savedView = localStorage.getItem('viewMode');
+            if (savedView) {
+                setView(savedView);
+            }
+        }
+    });
+    </script>
 </body>
 </html>
