@@ -2,12 +2,23 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <h1>{{ ui.home_title }}</h1>
+
+    <div class="search-form">
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="search" name="q" placeholder="{{ ui.search_placeholder }}" required>
+            <button type="submit">{{ ui.search_button }}</button>
+        </form>
+    </div>
+    <hr>
+
     <div class="tile-container">
-        {% for food in foods %}
-            <a href="/food/{{ food.id }}" class="tile">
-                <img src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
+        {# ★★★ ループする変数を 'foods' から 'categories' に修正 ★★★ #}
+        {% for category in categories %}
+            <a href="/category/{{ category.category_id }}" class="tile">
+                {# ★★★ 'food' を 'category' に修正 ★★★ #}
+                <img src="{{ url_for('static', filename='images/' + category.image_filename) if category.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ category['name_' + current_lang] }}">
                 <div class="tile-caption">
-                    <h3>{{ food['name_' + current_lang] }}</h3>
+                    <h3>{{ category['name_' + current_lang] }}</h3>
                 </div>
             </a>
         {% endfor %}

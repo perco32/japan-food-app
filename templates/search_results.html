@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}「{{ query }}」の検索結果{% endblock %}
+{% block content %}
+
+    <a href="/">← {{ ui.back_to_home }}</a>
+    
+    {% if dishes %}
+        <h1>「{{ query }}」{{ ui.search_results_title }}</h1>
+        <ul class="details-list">
+            {% for dish in dishes %}
+                <li>
+                    <a href="/dish/{{ dish.dish_id }}">
+                        <img class="details-img" src="{{ url_for('static', filename='images/' + dish.image_filename) if dish.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ dish['name_' + current_lang] }}">
+                        <div class="details-text">
+                            <h3>{{ dish['name_' + current_lang] }}</h3>
+                            <p>{{ dish['description_' + current_lang] }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>「{{ query }}」{{ ui.search_no_results }}</h1>
+        <p>{{ ui.search_try_again }}</p>
+    {% endif %}
+
+{% endblock %}

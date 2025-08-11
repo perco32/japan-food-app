@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>牛丼 レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>材料【2人分】</h3>
+        <ul>
+            <li>あたたかいごはん: どんぶり2杯 (400g)</li>
+            <li>牛切り落とし肉: 200g</li>
+            <li>玉ねぎ: 1/2個</li>
+            <li>紅生姜: 適量</li>
+        </ul>
+        <h4>☆調味料</h4>
+        <ul>
+            <li>酒: 大さじ1</li>
+            <li>みりん: 大さじ2</li>
+            <li>砂糖: 小さじ2</li>
+            <li>しょうゆ: 大さじ2</li>
+            <li>水: 200cc</li>
+            <li>おろししょうが: 小さじ1/2</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>玉ねぎはくし形に切る。</li>
+            <li>鍋に玉ねぎ、☆の調味料を全て入れて熱し、煮立ったらふたをして中火で5分加熱する。</li>
+            <li>牛肉をほぐしながら加え、アクを取りながら弱火で10分加熱する。</li>
+            <li>器にあたたかいごはんを盛り、3を乗せ、お好みで紅生姜を添える。</li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

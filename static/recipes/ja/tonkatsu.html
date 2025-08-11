@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>とんかつ レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        blockquote { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 0.5em 0; padding: 0.5em 1em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>材料【2人分】</h3>
+        <ul>
+            <li>豚ロース肉 (とんかつ用): 2枚 (200g)</li>
+            <li>溶き卵: 1個分</li>
+            <li>パン粉: 適量</li>
+            <li>塩こしょう: 少々</li>
+            <li>薄力粉: 大さじ3</li>
+            <li>サラダ油: 適量 (鍋底から4cm程)</li>
+        </ul>
+        <h4>付け合わせ</h4>
+        <ul>
+            <li>キャベツ (千切り): 2枚分 (80g)</li>
+            <li>ミニトマト: 4個</li>
+        </ul>
+        <h4>その他</h4>
+        <ul>
+            <li>からし: 適量</li>
+            <li>とんかつソース: 適量</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                豚肉は脂身と赤身の間に5ヶ所程、包丁の刃先で切り込みを入れる。
+                <blockquote>ポイント: 焼き縮みを防ぐため、筋切りをしましょう。</blockquote>
+            </li>
+            <li>
+                豚肉の両面に塩こしょうをふり、薄力粉を薄くまぶす。
+            </li>
+            <li>
+                豚肉に溶き卵、パン粉を順につける。
+                <blockquote>ポイント: 衣をまんべんなくつけることで肉から剥がれにくくなり、ジューシーな仕上がりになります。</blockquote>
+            </li>
+            <li>
+                鍋にサラダ油を底から4cm程入れて170℃に熱し、3を入れて2分程揚げる。裏に返し、こんがり色がついて肉に火が通るまで2〜3分程揚げる。
+                <blockquote>ポイント: 170℃の油は菜箸を入れた際に箸先から細かい泡が出る状態です。油に肉を入れてからすぐに触ると衣が剥がれやすいため、表面がかたまるまで触らないようにしましょう。</blockquote>
+            </li>
+            <li>
+                とんかつは食べやすい大きさに切る。器に付け合わせ、とんかつを盛り、とんかつソース、お好みでからしを添える。
+                <blockquote>ポイント: 包丁を上から押すようにするときれいに切ることができます。</blockquote>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -23,21 +23,21 @@
 
     <div class="container">
         {% block content %}{% endblock %}
-
+        
         <div class="footer-nav">
             <a href="{{ url_for('home') }}" class="btn-home">{{ ui.back_to_home }}</a>
-        </div>
         </div>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- 表示切り替え (タイル/詳細) のロジック ---
         const viewWrapper = document.getElementById('view-wrapper');
         const tilesBtn = document.getElementById('view-tiles-btn');
         const detailsBtn = document.getElementById('view-details-btn');
 
         if (viewWrapper && tilesBtn && detailsBtn) {
-            
             const setView = (view) => {
                 if (view === 'details') {
                     viewWrapper.classList.remove('view-tiles');
@@ -53,14 +53,47 @@
                     localStorage.setItem('viewMode', 'tiles');
                 }
             };
-
             tilesBtn.addEventListener('click', () => setView('tiles'));
             detailsBtn.addEventListener('click', () => setView('details'));
-
             const savedView = localStorage.getItem('viewMode');
             if (savedView) {
                 setView(savedView);
             }
+        }
+
+        // --- タブ切り替えのロジック ---
+        const tabNav = document.querySelector('.tab-nav');
+        if (tabNav) {
+            const tabBtns = tabNav.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelector('.tab-content').querySelectorAll('.tab-panel');
+
+            tabNav.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const tabTarget = e.target.dataset.tab;
+
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    tabPanels.forEach(panel => {
+                        if (panel.id === tabTarget) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+
+                    // レシピタブが表示されたら、iframeに高さをリクエストする
+                    if (tabTarget === 'recipe') {
+                        const iframe = document.querySelector('.recipe-iframe');
+                        if (iframe) {
+                            iframe.addEventListener('load', () => {
+                                iframe.contentWindow.postMessage('requestHeight', '*');
+                            });
+                            iframe.contentWindow.postMessage('requestHeight', '*');
+                        }
+                    }
+                }
+            });
         }
     });
     </script>

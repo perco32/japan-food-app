@@ -3,67 +3,85 @@
 {% block content %}
 
     {% if current_category.parent_id %}
-        <a href="/food/{{ current_category.parent_id }}">← {{ ui.back_to_parent }}</a>
+        <a href="/category/{{ current_category.parent_id }}">← {{ ui.back_to_parent }}</a>
     {% endif %}
     
     <div class="header-with-controls">
         <h1>{{ current_category['name_' + current_lang] }}</h1>
-        <div class="view-switcher">
-            <button id="view-tiles-btn" class="active">{{ ui.view_tiles }}</button>
-            <button id="view-details-btn">{{ ui.view_details }}</button>
-        </div>
+        {% if child_categories or dishes %}
+            <div class="view-switcher">
+                <button id="view-tiles-btn" class="active">{{ ui.view_tiles }}</button>
+                <button id="view-details-btn">{{ ui.view_details }}</button>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="search-form">
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="hidden" name="category_id" value="{{ current_category.category_id }}">
+            {% if current_lang == 'ja' %}
+                <input type="search" name="q" placeholder="{{ current_category.name_ja }}{{ ui.search_in_category_suffix }}" required>
+            {% else %}
+                <input type="search" name="q" placeholder="{{ ui.search_in_category_prefix }} {{ current_category.name_en }}" required>
+            {% endif %}
+            <button type="submit">{{ ui.search_button }}</button>
+        </form>
     </div>
 
     <p class="category-description">{{ current_category['description_' + current_lang] }}</p>
     <hr>
-
+    
     <div id="view-wrapper" class="view-tiles">
         
-        {% if child_categories %}
-            <div class="tile-container">
-                {% for food in child_categories %}
-                    <a href="/food/{{ food.id }}" class="tile">
-                        <img src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
-                        
-                        <div class="tile-icon">
-                            {% if food.recipe_url_ja %}
-                                <span>📖</span>
-                            {% else %}
-                                <span>→</span>
-                            {% endif %}
-                        </div>
-                        <div class="tile-caption">
-                            <h3>{{ food['name_' + current_lang] }}</h3>
+        <div class="tile-container">
+            {# サブカテゴリーには「→」アイコンを表示 #}
+            {% for category in child_categories %}
+                <a href="/category/{{ category.category_id }}" class="tile">
+                    <img src="{{ url_for('static', filename='images/' + category.image_filename) if category.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ category['name_' + current_lang] }}">
+                    <div class="tile-icon"><span>→</span></div>
+                    <div class="tile-caption">
+                        <h3>{{ category['name_' + current_lang] }}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+            {# 料理には「📖」アイコンを表示 #}
+            {% for dish in dishes %}
+                <a href="/dish/{{ dish.dish_id }}" class="tile">
+                    <img src="{{ url_for('static', filename='images/' + dish.image_filename) if dish.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ dish['name_' + current_lang] }}">
+                    <div class="tile-icon"><span>📖</span></div>
+                    <div class="tile-caption">
+                        <h3>{{ dish['name_' + current_lang] }}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <ul class="details-list">
+             {# サブカテゴリーには「→」アイコンを表示 #}
+             {% for category in child_categories %}
+                <li>
+                    <a href="/category/{{ category.category_id }}">
+                        <img class="details-img" src="{{ url_for('static', filename='images/' + category.image_filename) if category.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ category['name_' + current_lang] }}">
+                        <div class="details-text">
+                            <h3><span class="details-icon">→</span> {{ category['name_' + current_lang] }}</h3>
+                            <p>{{ category['description_' + current_lang] }}</p>
                         </div>
                     </a>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {% if child_categories %}
-            <ul class="details-list">
-                {% for food in child_categories %}
-                    <li>
-                        <a href="/food/{{ food.id }}">
-                            <img class="details-img" src="{{ url_for('static', filename='images/' + food.image_filename) if food.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ food['name_' + current_lang] }}">
-                            <div class="details-text">
-                                <h3>
-                                    {# アイコンを追加 #}
-                                    {% if food.recipe_url_ja %}
-                                        <span class="details-icon">📖</span>
-                                    {% else %}
-                                        <span class="details-icon">→</span>
-                                    {% endif %}
-                                    
-                                    {{ food['name_' + current_lang] }}
-                                </h3>
-                                <p>{{ food['description_' + current_lang] }}</p>
-                            </div>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+                </li>
+            {% endfor %}
+            {# 料理には「📖」アイコンを表示 #}
+            {% for dish in dishes %}
+                <li>
+                    <a href="/dish/{{ dish.dish_id }}">
+                        <img class="details-img" src="{{ url_for('static', filename='images/' + dish.image_filename) if dish.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ dish['name_' + current_lang] }}">
+                        <div class="details-text">
+                            <h3><span class="details-icon">📖</span> {{ dish['name_' + current_lang] }}</h3>
+                            <p>{{ dish['description_' + current_lang] }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
 {% endblock %}

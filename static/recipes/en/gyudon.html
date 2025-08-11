@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gyudon (Beef Bowl) Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>Ingredients (for 2 servings)</h3>
+        <ul>
+            <li>Warm cooked rice: 2 large bowls (400g / approx. 14 oz)</li>
+            <li>Thinly sliced beef: 200g (approx. 7 oz)</li>
+            <li>Onion: 1/2</li>
+            <li>Red pickled ginger (Beni shoga): to taste</li>
+        </ul>
+        <h4>☆ Seasonings</h4>
+        <ul>
+            <li>Sake: 1 tbsp</li>
+            <li>Mirin: 2 tbsp</li>
+            <li>Sugar: 2 tsp</li>
+            <li>Soy sauce: 2 tbsp</li>
+            <li>Water: 200cc (approx. 0.85 US cups)</li>
+            <li>Grated ginger: 1/2 tsp</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>Cut the onion into wedges.</li>
+            <li>In a pot, combine the onion and all ☆ seasonings. Bring to a boil, then cover and cook over medium heat for 5 minutes.</li>
+            <li>Add the beef, breaking it apart. Skim off any scum and cook over low heat for 10 minutes.</li>
+            <li>Serve the warm rice in bowls, top with the mixture from step 3, and garnish with red pickled ginger as desired.</li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>
