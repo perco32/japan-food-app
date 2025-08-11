@@ -361,3 +361,57 @@ hr {
     font-size: 0.8em;
     color: #888;
 }
+
+/* ===================
+   Tab UI
+   =================== */
+   .tab-ui {
+    margin-top: 2em;
+}
+
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tab-btn {
+    padding: 0.8em 1.2em;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1em;
+    color: #007bff;
+    margin-bottom: -1px; /* 下線をコンテンツの枠線に重ねる */
+}
+
+.tab-btn.active {
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.tab-content {
+    padding: 1.5em;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.tab-panel:not(.active) {
+    display: none;
+}
+
+/* ===================
+   レシピ埋め込みフレーム
+   =================== */
+   .recipe-iframe {
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    display: block;
+    overflow: hidden; /* ★ これがスクロールバーを非表示にする現代的な方法です */
+}

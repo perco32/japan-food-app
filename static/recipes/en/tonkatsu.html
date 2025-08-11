@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tonkatsu Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        blockquote { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 0.5em 0; padding: 0.5em 1em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>Ingredients (for 2 servings)</h3>
+        <ul>
+            <li>Pork loin chops (for tonkatsu): 2 slices (200g / approx. 7 oz)</li>
+            <li>Beaten egg: 1</li>
+            <li>Panko (Japanese breadcrumbs): as needed</li>
+            <li>Salt and pepper: a pinch</li>
+            <li>All-purpose flour: 3 tbsp</li>
+            <li>Vegetable oil: enough to fill 4cm / 1.5 inches from the bottom of the pot</li>
+        </ul>
+        <h4>Garnish</h4>
+        <ul>
+            <li>Shredded cabbage: 2 leaves (80g)</li>
+            <li>Cherry tomatoes: 4</li>
+        </ul>
+        <h4>Other</h4>
+        <ul>
+            <li>Karashi (Japanese mustard): to taste</li>
+            <li>Tonkatsu sauce: to taste</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>
+                Make about 5 small incisions along the line between the fat and the red meat of the pork.
+                <blockquote>Tip: This helps prevent the pork from curling up as it cooks.</blockquote>
+            </li>
+            <li>
+                Season both sides of the pork with salt and pepper, then lightly coat with all-purpose flour.
+            </li>
+            <li>
+                Dip the pork into the beaten egg, then press firmly into the panko, ensuring an even coating.
+                <blockquote>Tip: A complete coating helps keep the meat juicy and prevents the breading from falling off.</blockquote>
+            </li>
+            <li>
+                Pour vegetable oil into a pot to a depth of about 4cm (1.5 inches) and heat to 170°C (340°F). Add the pork and fry for about 2 minutes. Flip it over and fry for another 2-3 minutes until golden brown and cooked through.
+                <blockquote>Tip: 170°C is when fine bubbles steadily rise from the tip of a wooden chopstick inserted in the oil. Avoid touching the pork right after putting it in, as the coating can easily come off.</blockquote>
+            </li>
+            <li>
+                Cut the tonkatsu into bite-sized strips. Serve on a plate with the garnish, and add tonkatsu sauce and karashi mustard to your liking.
+                <blockquote>Tip: Press the knife down firmly from above for clean cuts.</blockquote>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

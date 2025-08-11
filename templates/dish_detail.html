@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}{{ dish['name_' + current_lang] }}{% endblock %}
+{% block content %}
+
+    {# ★★★ 修正点2: 親カテゴリーが見つかった場合のみリンクを表示 ★★★ #}
+    {% if parent_category %}
+        <a href="/category/{{ parent_category.category_id }}">← {{ ui.back_to_parent }}</a>
+    {% else %}
+        <a href="/">← {{ ui.back_to_home }}</a>
+    {% endif %}
+
+    <div class="dish-image-wrapper">
+        <img src="{{ url_for('static', filename='images/' + dish.image_filename) if dish.image_filename else url_for('static', filename='images/default.jpg') }}" alt="{{ dish.name_en }}" class="dish-main-image">
+    </div>
+
+    <h1>{{ dish['name_' + current_lang] }}</h1>
+    <p>{{ dish['description_' + current_lang] }}</p>
+    <hr>
+
+    {# (タブUIの部分は変更ありません) #}
+    {% if dish['recipe_url_' + current_lang] and dish['restaurants_' + current_lang] %}
+        <div class="tab-ui">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="restaurants">{{ ui.restaurants_title }}</button>
+                <button class="tab-btn" data-tab="recipe">{{ ui.recipe_title }}</button>
+            </div>
+            <div class="tab-content">
+                <div id="restaurants" class="tab-panel active">
+                    <ul id="restaurant-list"><li>読み込み中...</li></ul>
+                </div>
+                <div id="recipe" class="tab-panel">
+                    <iframe src="{{ url_for('static', filename=dish['recipe_url_' + current_lang]) }}" class="recipe-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    {% elif dish['restaurants_' + current_lang] %}
+        <div id="restaurant-info">
+            <h2>{{ ui.restaurants_title }}</h2>
+            <ul id="restaurant-list"><li>読み込み中...</li></ul>
+        </div>
+    {% elif dish['recipe_url_' + current_lang] %}
+        <div class="recipe-section">
+            <h2>{{ ui.recipe_title }}</h2>
+            <iframe src="{{ url_for('static', filename=dish['recipe_url_' + current_lang]) }}" class="recipe-iframe"></iframe>
+        </div>
+    {% endif %}
+
+    <script>
+        // ★★★ 修正点1: 正しい料理ID (dish_id) をJavaScriptに渡す ★★★
+        document.body.setAttribute('data-food-id', '{{ dish.dish_id }}');
+
+        // (以降のJavaScriptは変更ありません)
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'resize-iframe') {
+                const iframe = document.querySelector('.recipe-iframe');
+                if (iframe) {
+                    iframe.style.height = (event.data.height + 20) + 'px';
+                }
+            }
+        });
+        const fetchRestaurants = () => {
+            const foodId = document.body.dataset.foodId;
+            const listElement = document.getElementById('restaurant-list');
+            if (foodId && listElement && !listElement.dataset.loaded) {
+                listElement.dataset.loaded = 'true';
+                fetch(`/api/restaurants/${foodId}`)
+                    .then(response => response.json())
+                    .then(restaurants => {
+                        listElement.innerHTML = '';
+                        if (restaurants.length > 0) {
+                            restaurants.forEach(name => {
+                                const li = document.createElement('li');
+                                li.textContent = name;
+                                listElement.appendChild(li);
+                            });
+                        } else {
+                            listElement.innerHTML = `<li>{{ ui.no_restaurant_data }}</li>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching restaurants:', error);
+                        listElement.innerHTML = `<li>{{ ui.fetch_error }}</li>`;
+                    });
+            }
+        };
+        document.addEventListener('DOMContentLoaded', fetchRestaurants);
+        const restaurantTab = document.querySelector('.tab-btn[data-tab="restaurants"]');
+        if(restaurantTab){
+            restaurantTab.addEventListener('click', fetchRestaurants);
+        }
+    </script>
+{% endblock %}
