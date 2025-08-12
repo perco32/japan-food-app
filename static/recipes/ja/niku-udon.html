@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>肉うどん レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>牛肉？豚肉？</h4>
+            <p>肉うどんは、牛肉でも豚肉でも美味しく作れます。一般的に、関西では牛肉、関東では豚肉が使われる傾向があります。お好きな方で作ってみてください。</p>
+        </div>
+
+        <h3>材料（1人分）</h3>
+        <ul>
+            <li>冷凍うどん: 1玉</li>
+            <li>牛または豚の薄切り肉: 80g</li>
+            <li>玉ねぎ: 1/4個</li>
+            <li>刻みねぎ: 適量</li>
+        </ul>
+        <h4>☆割り下（肉を煮るタレ）</h4>
+        <ul>
+            <li>醤油: 大さじ1.5</li>
+            <li>みりん: 大さじ1.5</li>
+            <li>砂糖: 大さじ1/2</li>
+            <li>酒: 大さじ1</li>
+        </ul>
+        <h4>☆かけつゆ</h4>
+        <ul>
+            <li>だし汁: 300ml</li>
+            <li>薄口醤油: 小さじ1 (なければ醤油を少し)</li>
+            <li>塩: 少々</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                <strong>準備:</strong> 玉ねぎは薄切りにする。肉は食べやすい大きさに切る。
+            </li>
+            <li>
+                <strong>肉を煮る:</strong> 小さな鍋に☆割り下の材料と玉ねぎを入れて中火にかける。煮立ったら肉を加え、ほぐしながら火が通るまで煮る。
+            </li>
+            <li>
+                <strong>うどんを準備する:</strong> 別の鍋でうどんを茹でて解凍し、器に盛る。
+            </li>
+            <li>
+                <strong>仕上げ:</strong> 2の鍋に☆かけつゆのだし汁を加え、ひと煮立ちさせる。塩と薄口醤油で味を調える。
+            </li>
+            <li>
+                <strong>盛り付け:</strong> うどんが入った器に4のつゆと具を全て注ぎ入れる。最後に刻みねぎを散らして完成。
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        // ★★★ ResizeObserverの監視対象を正しく修正 ★★★
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カレーうどん レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>カレーうどんの魅力</h4>
+            <p>日本の国民食であるカレーライスと、うどんが融合した人気のメニューです。だしが効いた少し甘めのカレースープが特徴で、心も体も温まります。汁が跳ねやすいので、白い服の時は気をつけて！</p>
+        </div>
+
+        <h3>材料（1人分）</h3>
+        <ul>
+            <li>冷凍うどん: 1玉</li>
+            <li>豚バラ薄切り肉: 50g (鶏肉や牛肉でも可)</li>
+            <li>玉ねぎ: 1/4個</li>
+            <li>カレールウ: 1片 (約20g)</li>
+            <li>めんつゆ（3倍濃縮）: 大さじ2</li>
+            <li>水: 300ml</li>
+            <li>サラダ油: 少々</li>
+            <li>刻みねぎ: 適量</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                <strong>準備:</strong> 玉ねぎは薄切りにする。豚肉は食べやすい大きさに切る。カレールウは細かく刻んでおくと溶けやすい。
+            </li>
+            <li>
+                <strong>炒める:</strong> 小さな鍋にサラダ油を熱し、豚肉と玉ねぎを炒める。
+            </li>
+            <li>
+                <strong>煮る:</strong> 肉の色が変わったら、水とめんつゆを加えて煮立たせる。煮立ったらアクを取り、弱火で3〜4分煮る。
+            </li>
+            <li>
+                <strong>ルウを溶かす:</strong> いったん火を止め、刻んだカレールウを加えて完全に溶かす。
+                <p class="tip-box">ポイント: 火を止めてからルウを入れることで、ダマにならず滑らかに仕上がります。</p>
+            </li>
+            <li>
+                <strong>仕上げ:</strong> 再び弱火にかけ、とろみがつくまで混ぜながら1〜2分煮る。別の鍋で茹でて器に盛ったうどんに、熱々のカレースープをかけて、刻みねぎを散らせば完成。
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

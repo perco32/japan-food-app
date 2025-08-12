@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ざるそば レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>ざるそばとは？</h4>
+            <p>茹でたそばを冷水で締め、ざるに乗せて提供される冷たい麺料理。日本の夏の定番です。「ざる」とは、麺を乗せる竹製の平たい器のことを指します。</p>
+        </div>
+
+        <h3>材料（1人分）</h3>
+        <ul>
+            <li>そば（乾麺）: 100g</li>
+            <li>めんつゆ（3倍濃縮）: 50ml</li>
+            <li>冷水: 100ml</li>
+        </ul>
+        <h4>お好みの薬味</h4>
+        <ul>
+            <li>刻みねぎ</li>
+            <li>わさび</li>
+            <li>刻み海苔</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                <strong>そばを茹でる:</strong> 鍋にたっぷりのお湯を沸かし、そばを袋の表示時間通りに茹でる。
+            </li>
+            <li>
+                <strong>冷水で締める:</strong> 茹で上がったそばをざるにあげ、流水で表面のぬめりを取るように優しく洗う。最後に氷水に10秒ほど浸してしっかりと締め、水気をよく切る。
+                <p class="tip-box">ポイント: この工程が、そばに強いコシと喉越しを生む最も重要なステップです。</p>
+            </li>
+            <li>
+                <strong>つゆを作る:</strong> 器にめんつゆと冷水を入れて混ぜ合わせる。
+            </li>
+            <li>
+                <strong>盛り付け:</strong> ざるや皿にそばを盛り、刻み海苔をかける。つゆと薬味を添えて完成。麺を少しずつつゆにつけて食べる。
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        const sendHeight = () => {
+            // コンテンツの高さを計算して親ウィンドウに送信
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+
+        // ResizeObserverでコンテンツの高さの変更を監視
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        
+        // 親ウィンドウからリクエストがあった場合にも高さを送信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

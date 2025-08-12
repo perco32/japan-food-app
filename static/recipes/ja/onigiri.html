@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>おにぎり レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+        /* タブUIのスタイル */
+        .tab-nav { display: flex; border-bottom: 1px solid #ccc; }
+        .tab-btn { padding: 0.8em 1.2em; border: none; background: #f0f0f0; cursor: pointer; font-size: 1em; }
+        .tab-btn.active { background: #fff; border: 1px solid #ccc; border-bottom: 1px solid #fff; margin-bottom: -1px; }
+        .tab-content { border: 1px solid #ccc; border-top: none; padding: 1.5em; }
+        .tab-panel:not(.active) { display: none; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tab-ui">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="basic">基本の塩むすび</button>
+                <button class="tab-btn" data-tab="tuna-mayo">ツナマヨ</button>
+                <button class="tab-btn" data-tab="yaki-onigiri">焼きおにぎり</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="basic" class="tab-panel active">
+                    <div class="tip-box">
+                        <h4>塩むすびとは？</h4>
+                        <p>具材を入れずに、ご飯と塩だけで作る最もシンプルなおにぎりです。だからこそ、お米本来の美味しさが際立ちます。日本のソウルフードの原点とも言える一品です。</p>
+                    </div>
+                    <h3>材料（小さめ4個分）</h3>
+                    <ul>
+                        <li>炊きたてのご飯: お茶碗 約2杯分 (300g)</li>
+                        <li>水: 1/2カップ（手水用）</li>
+                        <li>塩: 小さじ1/2（手水用）</li>
+                        <li>焼き海苔: お好みで</li>
+                    </ul>
+                    <h3>作り方</h3>
+                    <ol>
+                        <li><strong>手塩の準備:</strong> 小さなボウルに水と塩を入れてよく溶かし、手に付けるための「手塩（てじお）」を作ります。</li>
+                        <li><strong>手を湿らせる:</strong> 両手に手塩をつけ、手のひら全体に均等になじませます。これにより、ご飯が手にくっつくのを防ぎ、同時に均等に塩味をつけます。</li>
+                        <li><strong>ご飯を取る:</strong> 炊きたての温かいご飯の1/4量（約75g）を手に取ります。</li>
+                        <li><strong>優しく握る:</strong> 指先を立てて、ご飯の間に少し空気が残るように数回優しく握ります。強く握りすぎると硬くなってしまうので注意してください。</li>
+                        <li><strong>形を整える:</strong> 最後に手のひら全体で包み込むように2〜3回握り、三角形や俵形に形を整えます。</li>
+                        <li><strong>完成:</strong> お好みで海苔を巻いて完成です。残りも同様に握ります。</li>
+                    </ol>
+                </div>
+
+                <div id="tuna-mayo" class="tab-panel">
+                    <h3>材料</h3>
+                    <ul>
+                        <li>温かいご飯: 2個分</li>
+                        <li>ツナ缶（油漬け）: 1/2缶 (約35g)</li>
+                        <li>マヨネーズ: 大さじ1</li>
+                        <li>めんつゆ（2倍濃縮）: 小さじ1/2 (醤油でも可)</li>
+                        <li>お好みで: おかか(鰹節) 大さじ1、天かす 大さじ1</li>
+                    </ul>
+                    <h3>作り方</h3>
+                    <ol>
+                        <li>ツナ缶の油をよく切り、マヨネーズ、めんつゆと混ぜ合わせる。さらに美味しくするには、おかかと天かすも加えると風味と食感が良くなります。</li>
+                        <li>手に塩水（分量外）をつけ、ご飯の中央にくぼみを作り、1の具材を入れて包むように優しく握る。</li>
+                    </ol>
+                </div>
+
+                <div id="yaki-onigiri" class="tab-panel">
+                    <h3>材料（2個分）</h3>
+                    <ul>
+                        <li>温かいご飯: 茶碗1杯分 (約150g)</li>
+                        <li>ごま油: 小さじ1</li>
+                    </ul>
+                    <h4>☆タレ</h4>
+                    <ul>
+                        <li>醤油: 大さじ1</li>
+                        <li>みりん: 小さじ1</li>
+                        <li>お好みで: だしの素 少々</li>
+                    </ul>
+                    <h3>作り方</h3>
+                    <ol>
+                        <li>ボウルにご飯とごま油（分量外）を少量混ぜ、少し固めに三角形に握る。</li>
+                        <li>フライパンにごま油を熱し、おにぎりの両面を中火で押さえつけながら、焼き色がつくまで焼く。</li>
+                        <li>一度火を止め、混ぜ合わせておいた☆タレを刷毛で両面に塗る。</li>
+                        <li>再び弱火にかけ、タレが乾いて香ばしい香りが立つまで両面を焼く。</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- タブ切り替えロジック ---
+        const tabNav = document.querySelector('.tab-nav');
+        if (tabNav) {
+            const tabBtns = tabNav.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelector('.tab-content').querySelectorAll('.tab-panel');
+            tabNav.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const tabTarget = e.target.dataset.tab;
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    tabPanels.forEach(panel => {
+                        if (panel.id === tabTarget) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }
+        // --- 高さ自動調整ロジック ---
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

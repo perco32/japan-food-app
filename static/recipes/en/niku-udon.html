@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Niku Udon (Meat Udon) Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>Beef or Pork?</h4>
+            <p>Niku Udon can be made with either beef or pork. Culturally, beef is more common in the Kansai (Western Japan) region, while pork is often used in the Kanto (Eastern Japan/Tokyo) region. Feel free to use whichever you prefer!</p>
+        </div>
+
+        <h3>Ingredients (for 1 serving)</h3>
+        <ul>
+            <li>Frozen udon noodle block: 1</li>
+            <li>Thinly sliced beef or pork: 80g (approx. 2.8 oz)</li>
+            <li>Onion: 1/4</li>
+            <li>Chopped green onions: for garnish</li>
+        </ul>
+        <h4>☆ Warishita (Meat Simmering Sauce)</h4>
+        <ul>
+            <li>Soy sauce: 1.5 tbsp</li>
+            <li>Mirin: 1.5 tbsp</li>
+            <li>Sugar: 0.5 tbsp</li>
+            <li>Sake: 1 tbsp</li>
+        </ul>
+        <h4>☆ Broth</h4>
+        <ul>
+            <li>Dashi stock: 300ml (approx. 1.25 US cups)</li>
+            <li>Light soy sauce (usukuchi): 1 tsp (or a splash of regular soy sauce)</li>
+            <li>Salt: a pinch</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>
+                <strong>Preparation:</strong> Slice the onion thinly. Cut the meat into bite-sized pieces.
+            </li>
+            <li>
+                <strong>Simmer the Meat:</strong> In a small pot, combine the ☆ Warishita sauce ingredients and the onion. Bring to a simmer over medium heat. Add the meat, and cook until it's done, breaking it apart.
+            </li>
+            <li>
+                <strong>Prepare the Udon:</strong> In a separate pot, cook the udon according to package instructions. Drain and place it in a large bowl.
+            </li>
+            <li>
+                <strong>Finish the Broth:</strong> Pour the dashi stock into the pot from step 2 (with the meat). Bring to a boil. Season with the light soy sauce and salt.
+            </li>
+            <li>
+                <strong>Serve:</strong> Pour the entire contents of the pot (broth and meat) over the udon in the bowl. Garnish with chopped green onions.
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                // Get the height of the content wrapper
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        // Observe the content wrapper for size changes
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

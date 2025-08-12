@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kake Udon Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+
+        <h3>Ingredients (for 1 serving)</h3>
+        <ul>
+            <li>Frozen udon noodle block: 1</li>
+            <li>Mentsuyu (noodle soup base, 3x concentrate): 100ml (approx. 0.42 US cups)</li>
+            <li>Water: 200ml (approx. 0.85 US cups)</li>
+            <li>Optional toppings: Chopped green onions, kamaboko (fish cake), etc.</li>
+        </ul>
+        <div class="tip-box">
+            <h4>About Mentsuyu Concentrate Types</h4>
+            <p>Adjust the water amount according to the concentration of your mentsuyu. For a hot broth (approx. 300ml total), a general guide is:<br>
+            ・**For 2x concentrate:** Mentsuyu 150ml, Water 150ml (1:1 ratio)<br>
+            ・**For 3x concentrate:** Mentsuyu 100ml, Water 200ml (1:2 ratio)<br>
+            ・**For 4x concentrate:** Mentsuyu 75ml, Water 225ml (1:3 ratio)</p>
+        </div>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>Cook the frozen udon according to the package instructions (either in a microwave or by boiling) and place it in a bowl.</li>
+            <li>In a small pot, combine the mentsuyu and water. Bring to a boil.</li>
+            <li>Pour the hot broth from step 2 over the udon in the bowl.</li>
+            <li>Garnish with your favorite toppings like chopped green onions and serve immediately.</li>
+        </ol>
+
+        <div class="tip-box">
+            <h4>Arrangement & Topping Ideas</h4>
+            <p>Kake Udon can be enjoyed with a wide variety of toppings. Feel free to try these!</p>
+            <ul>
+                <li><strong>Wakame:</strong> Rehydrate dried wakame seaweed in water and add it on top.</li>
+                <li><strong>Tenkasu (Tempura Scraps):</strong> Adds a nice crunch.</li>
+                <li><strong>Spinach:</strong> Add some quickly boiled spinach.</li>
+                <li><strong>Sesame Seeds:</strong> Sprinkle some toasted sesame seeds for aroma.</li>
+                <li><strong>Tsukimi Udon:</strong> Drop a raw egg yolk in the center to make "moon-viewing" udon.</li>
+                <li><strong>Pork Belly & Black Pepper:</strong> Top with boiled pork belly slices and a generous amount of freshly ground black pepper.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        const sendHeight = () => {
+            // コンテンツの高さを計算して親ウィンドウに送信
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+
+        // ResizeObserverでコンテンツの高さの変更を監視
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        
+        // 親ウィンドウからリクエストがあった場合にも高さを送信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

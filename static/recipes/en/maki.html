@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maki Sushi Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 0.5em 0; padding: 0.5em 1em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>Sushi Rice Ingredients</h3>
+        <ul>
+            <li>Japanese short-grain rice: 2 rice-cooker cups (approx. 1.5 US cups or 360ml)</li>
+            <li>Rice vinegar: 4 tbsp</li>
+            <li>Sugar: 3 tbsp</li>
+            <li>Salt: 1 tsp</li>
+        </ul>
+
+        <h3>Maki Sushi Ingredients (for 2 rolls)</h3>
+        <ul>
+            <li>Nori (full sheets): 2</li>
+            <li>Salmon (sashimi-grade): 100g (approx. 3.5 oz)</li>
+            <li>Avocado: 1/2</li>
+            <li>Cucumber: 1/2</li>
+            <li>Optional: Sesame seeds, Mayonnaise</li>
+        </ul>
+
+        <div class="tip-box">
+            <h4>Tips for Arrangement</h4>
+            <p>The fillings for maki sushi are endless! Try making your own original rolls with ingredients like tuna salad, imitation crab, or rolled omelet (tamagoyaki). Just be careful not to overfill, as it will make rolling more difficult.</p>
+        </div>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>
+                <strong>Make Sushi Rice:</strong> Cook the rice. Once done, transfer to a large bowl. Drizzle the mixed vinegar, sugar, and salt over the rice. Use a rice paddle to "cut" and fold the rice, fanning it with a fan to cool it down quickly.
+            </li>
+            <li>
+                <strong>Prepare Fillings:</strong> Cut the salmon, avocado, and cucumber into long, 1cm (about 0.4 inch) thick sticks.
+            </li>
+            <li>
+                <strong>Spread the Rice:</strong> Place a bamboo rolling mat (makisu) on your work surface. Place one sheet of nori, shiny-side down. Leaving a 3cm (about 1 inch) border at the top, spread half of the sushi rice evenly over the nori.
+                <p class="tip">Tip: Dip your hands in "tezu" (a mixture of water and a little vinegar) to prevent the rice from sticking to them.</p>
+            </li>
+            <li>
+                <strong>Place the Fillings:</strong> Arrange half of your prepared fillings in a horizontal line across the rice, slightly closer to your side of the center.
+            </li>
+            <li>
+                <strong>Roll the Sushi:</strong> Pick up the edge of the mat closest to you. Roll it over the fillings, tucking the edge in to form a tight cylinder. Continue rolling until the end.
+            </li>
+            <li>
+                <strong>Cut the Roll:</strong> Moisten the blade of a sharp knife with a wet cloth. Cut the roll into 8 equal pieces. Repeat for the second roll.
+                <p class="tip">Tip: Wiping the blade after each cut ensures a clean slice.</p>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

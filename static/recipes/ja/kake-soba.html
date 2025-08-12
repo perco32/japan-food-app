@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>かけそば レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>材料（1人分）</h3>
+        <ul>
+            <li>そば（乾麺）: 100g</li>
+            <li>めんつゆ（3倍濃縮）: 100ml</li>
+            <li>水: 300ml</li>
+            <li>お好みの薬味: 刻みねぎなど</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>鍋にたっぷりのお湯を沸かし、そばを袋の表示時間通りに茹でる。</li>
+            <li>茹で上がったそばをざるにあげ、流水でぬめりを取るように洗い、水気を切る。</li>
+            <li>別の鍋にめんつゆと水を入れて火にかけ、ひと煮立ちさせる。</li>
+            <li>器に温めたそばを入れ、熱々の3のつゆを注ぐ。お好みで薬味を乗せて完成。</li>
+        </ol>
+
+        <div class="tip-box">
+            <h4>アレンジ・トッピングのアイデア</h4>
+            <p>かけそばは、様々なトッピングで楽しむことができます。</p>
+            <ul>
+                <li><strong>たぬきそば:</strong> 天かす（揚げ玉）を好きなだけのせる。</li>
+                <li><strong>天ぷらそば（天そば）:</strong> 海老天など、お好みの天ぷらを乗せる。</li>
+                <li><strong>月見そば:</strong> 生卵を中央に落とす。</li>
+                <li><strong>わかめそば:</strong> 水で戻したわかめを乗せる。</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        const sendHeight = () => {
+            // コンテンツの高さを計算して親ウィンドウに送信
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+
+        // ResizeObserverでコンテンツの高さの変更を監視
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        
+        // 親ウィンドウからリクエストがあった場合にも高さを送信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

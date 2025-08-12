@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>巻き寿司 レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 0.5em 0; padding: 0.5em 1em; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>すし飯の材料 (作りやすい分量)</h3>
+        <ul>
+            <li>米: 2合 (360ml)</li>
+            <li>酢: 大さじ4</li>
+            <li>砂糖: 大さじ3</li>
+            <li>塩: 小さじ1</li>
+        </ul>
+
+        <h3>巻き寿司の材料 (2本分)</h3>
+        <ul>
+            <li>焼き海苔 (全形): 2枚</li>
+            <li>サーモン (刺身用): 100g</li>
+            <li>アボカド: 1/2個</li>
+            <li>きゅうり: 1/2本</li>
+            <li>お好みで: 白ごま、マヨネーズ</li>
+        </ul>
+        
+        <div class="tip-box">
+            <h4>アレンジのヒント</h4>
+            <p>巻き寿司の具材は無限大！ツナマヨ、カニカマ、卵焼きなど、好きなものを入れて自分だけのオリジナル巻き寿司を作ってみましょう。ただし、具材を入れすぎると巻きにくくなるので注意してください。</p>
+        </div>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                <strong>すし飯を作る:</strong> 米を炊き、炊きあがったらボウルに移す。酢、砂糖、塩を混ぜ合わせたものを回しかけ、うちわで扇ぎながら、しゃもじで切るように混ぜて冷ます。
+            </li>
+            <li>
+                <strong>具材の準備:</strong> サーモン、アボカド、きゅうりをそれぞれ1cm角の棒状に切る。
+            </li>
+            <li>
+                <strong>ご飯を広げる:</strong> 巻きすの上に海苔のツルツルした面を下にして置く。海苔の上側を3cmほど残し、すし飯の半量を均等に広げる。
+                <p class="tip">ポイント: 手に酢水（水と酢を混ぜたもの）をつけると、ご飯がくっつきにくくなります。</p>
+            </li>
+            <li>
+                <strong>具材を乗せる:</strong> 広げたご飯の中央より少し手前に、準備した具材の半量を横一列に並べる。
+            </li>
+            <li>
+                <strong>巻く:</strong> 巻きすの手前を持ち上げ、具材を芯にするように、向こう側のすし飯の端まで一気に巻く。巻き終わりを下にして、形を整える。
+            </li>
+            <li>
+                <strong>切る:</strong> 包丁を濡れ布巾で一度湿らせてから、8等分に切り分ける。もう1本も同様に作る。
+                <p class="tip">ポイント: 1回切るごとに包丁を拭くと、きれいに切れます。</p>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = document.body.scrollHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

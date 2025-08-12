@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Onigiri (Rice Ball) Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+        /* Tab UI Styles */
+        .tab-nav { display: flex; border-bottom: 1px solid #ccc; }
+        .tab-btn { padding: 0.8em 1.2em; border: none; background: #f0f0f0; cursor: pointer; font-size: 1em; }
+        .tab-btn.active { background: #fff; border: 1px solid #ccc; border-bottom: 1px solid #fff; margin-bottom: -1px; }
+        .tab-content { border: 1px solid #ccc; border-top: none; padding: 1.5em; }
+        .tab-panel:not(.active) { display: none; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tab-ui">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="basic">Basic Shio Musubi</button>
+                <button class="tab-btn" data-tab="tuna-mayo">Tuna Mayo</button>
+                <button class="tab-btn" data-tab="yaki-onigiri">Yaki Onigiri</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="basic" class="tab-panel active">
+                    <div class="tip-box">
+                        <h4>What is Shio Musubi?</h4>
+                        <p>This is the simplest form of onigiri, made with only rice and salt. For this reason, it highlights the delicious natural flavor of the rice itself. It's the origin of Japanese soul food.</p>
+                    </div>
+                    <h3>Ingredients (makes 4 small rice balls)</h3>
+                    <ul>
+                        <li>Freshly cooked Japanese short-grain rice: Approx. 2 rice bowls (300g / 10.5 oz)</li>
+                        <li>Water: 1/2 cup (for wetting hands)</li>
+                        <li>Salt: 1/2 tsp (for wetting hands)</li>
+                        <li>Nori (seaweed sheet): optional</li>
+                    </ul>
+                    <h3>Instructions</h3>
+                    <ol>
+                        <li><strong>Prepare "Teshio":</strong> In a small bowl, dissolve the salt in the water. This salted water is called "Teshio."</li>
+                        <li><strong>Wet Your Hands:</strong> Dip both hands in the tezu, spreading it evenly. This prevents the rice from sticking and seasons it.</li>
+                        <li><strong>Take the Rice:</strong> Take 1/4 of the hot, freshly cooked rice (about 75g) into your hand.</li>
+                        <li><strong>Form Gently:</strong> Use your fingertips to gently shape the rice a few times, leaving some air pockets inside. Don't squeeze too hard.</li>
+                        <li><strong>Finalize the Shape:</strong> Finally, cup the rice ball with both palms and press 2-3 times to firm up the surface into a triangle or other shape.</li>
+                        <li><strong>Finish:</strong> Wrap with nori if desired. Repeat for the remaining rice.</li>
+                    </ol>
+                </div>
+
+                <div id="tuna-mayo" class="tab-panel">
+                    <h3>Ingredients</h3>
+                    <ul>
+                        <li>Warm rice: for 2 onigiri</li>
+                        <li>Canned tuna (in oil): 1/2 can (approx. 35g / 1.2 oz)</li>
+                        <li>Mayonnaise: 1 tbsp</li>
+                        <li>Mentsuyu (noodle soup base, 2x concentrate): 1/2 tsp (or Soy Sauce)</li>
+                        <li>Optional: Katsuobushi (bonito flakes) 1 tbsp, Tenkasu (crunchy tempura bits) 1 tbsp</li>
+                    </ul>
+                    <h3>Instructions</h3>
+                    <ol>
+                        <li>Drain the oil from the tuna well and mix with mayonnaise and mentsuyu. For an even more delicious result, add the optional katsuobushi and tenkasu for better flavor and texture.</li>
+                        <li>With salted, wet hands, make an indent in the center of the rice, place the tuna filling inside, and gently form the onigiri, enclosing the filling.</li>
+                    </ol>
+                </div>
+
+                <div id="yaki-onigiri" class="tab-panel">
+                    <h3>Ingredients (for 2 rice balls)</h3>
+                    <ul>
+                        <li>Warm cooked rice: 1 rice bowl (approx. 150g / 5.3 oz)</li>
+                        <li>Sesame oil: 1 tsp</li>
+                    </ul>
+                    <h4>☆ Glaze</h4>
+                    <ul>
+                        <li>Soy sauce: 1 tbsp</li>
+                        <li>Mirin: 1 tsp</li>
+                        <li>Optional: a pinch of dashi powder</li>
+                    </ul>
+                    <h3>Instructions</h3>
+                    <ol>
+                        <li>In a bowl, mix a little sesame oil (not included in ingredients) with the warm rice, and form into firm triangles.</li>
+                        <li>Heat the sesame oil in a frying pan. Grill both sides of the rice balls over medium heat, pressing down gently, until they are browned and slightly crispy.</li>
+                        <li>Turn off the heat. Mix the ☆ glaze ingredients and brush it onto both sides of the rice balls.</li>
+                        <li>Turn the heat back on to low and grill again until the glaze is dry and aromatic.</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Tab UI Logic ---
+        const tabNav = document.querySelector('.tab-nav');
+        if (tabNav) {
+            const tabBtns = tabNav.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelector('.tab-content').querySelectorAll('.tab-panel');
+            tabNav.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const tabTarget = e.target.dataset.tab;
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    tabPanels.forEach(panel => {
+                        if (panel.id === tabTarget) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }
+        // --- Height Adjustment Logic ---
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

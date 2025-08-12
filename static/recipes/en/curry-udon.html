@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Curry Udon Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>About Curry Udon</h4>
+            <p>A popular dish that combines two Japanese national favorites: curry rice and udon noodles. It features a slightly sweet, dashi-flavored curry soup that warms you up. Be careful not to splash the soup on white clothes!</p>
+        </div>
+
+        <h3>Ingredients (for 1 serving)</h3>
+        <ul>
+            <li>Frozen udon noodle block: 1</li>
+            <li>Thinly sliced pork belly: 50g (approx. 1.8 oz) - Chicken or beef also work well.</li>
+            <li>Onion: 1/4</li>
+            <li>Japanese curry roux block: 1 piece (approx. 20g / 0.7 oz)</li>
+            <li>Mentsuyu (noodle soup base, 3x concentrate): 2 tbsp</li>
+            <li>Water: 300ml (approx. 1.25 US cups)</li>
+            <li>Vegetable oil: a little</li>
+            <li>Chopped green onions: for garnish</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>
+                <strong>Preparation:</strong> Slice the onion thinly. Cut the pork into bite-sized pieces. Finely chop the curry roux block to help it dissolve easily.
+            </li>
+            <li>
+                <strong>Sauté:</strong> Heat the vegetable oil in a small pot and sauté the pork and onion.
+            </li>
+            <li>
+                <strong>Simmer:</strong> When the meat changes color, add the water and mentsuyu and bring to a boil. Skim off any scum, then simmer on low heat for 3-4 minutes.
+            </li>
+            <li>
+                <strong>Dissolve the Roux:</strong> Turn off the heat completely. Add the chopped curry roux and stir until it has fully dissolved.
+                <p class="tip-box">Tip: Turning off the heat before adding the roux is the key to a smooth, lump-free soup.</p>
+            </li>
+            <li>
+                <strong>Finish:</strong> Turn the heat back on to low and simmer for 1-2 minutes, stirring, until the soup thickens. Meanwhile, cook the udon and place it in a bowl. Pour the hot curry soup over the udon, garnish with green onions, and serve.
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const sendHeight = () => {
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

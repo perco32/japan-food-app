@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>親子丼 レシピ</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="tip-box">
+            <h4>親子丼とは？</h4>
+            <p>「親（鶏肉）」と「子（卵）」を一つの丼で味わうことから、このユニークな名前が付きました。日本の家庭料理の定番であり、心温まる一品です。</p>
+        </div>
+
+        <h3>材料（1人分）</h3>
+        <ul>
+            <li>鶏もも肉: 1/2枚 (約120g)</li>
+            <li>玉ねぎ: 1/4個</li>
+            <li>卵: 2個</li>
+            <li>温かいご飯: 丼1杯分</li>
+            <li>お好みで: 三つ葉や刻み海苔</li>
+        </ul>
+        <h4>☆割り下（煮汁）</h4>
+        <ul>
+            <li>だし汁: 100ml （水100mlとだしの素小さじ1/3でも可）</li>
+            <li>醤油: 大さじ2</li>
+            <li>みりん: 大さじ2</li>
+            <li>砂糖: 小さじ1</li>
+        </ul>
+
+        <h3>作り方</h3>
+        <ol>
+            <li>
+                <strong>下準備:</strong> 鶏肉は小さめの一口大に切る。玉ねぎは薄切りにする。卵はボウルに割り入れ、白身を切るように軽く溶きほぐす。完全に混ぜきらないのがポイントです。
+            </li>
+            <li>
+                <strong>煮る:</strong> 小さめのフライパンに☆の割り下の材料と玉ねぎを入れ、中火にかける。煮立ったら鶏肉を加え、火が通るまで2〜3分煮る。
+            </li>
+            <li>
+                <strong>卵を入れる（1回目）:</strong> 溶き卵の<strong>2/3量</strong>を、鍋全体に円を描くように回し入れる。蓋をして、卵が半熟状になるまで30秒〜1分ほど弱火で煮る。
+            </li>
+            <li>
+                <strong>卵を入れる（2回目）:</strong> 蓋を取り、残りの<strong>1/3量の溶き卵</strong>を中央に流し入れる。
+            </li>
+            <li>
+                <strong>仕上げ:</strong> 再び蓋をして10秒ほど蒸らす。火を止め、ご飯を盛った丼の上に滑らせるように乗せる。お好みで三つ葉などを添えて完成。
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const sendHeight = () => { setTimeout(() => { const height = document.body.scrollHeight; window.parent.postMessage({ type: 'resize-iframe', height: height }, '*'); }, 150); };
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.querySelector('.content-wrapper'));
+        window.addEventListener('message', (event) => { if (event.data === 'requestHeight') { sendHeight(); } });
+    </script>
+</body>
+</html>

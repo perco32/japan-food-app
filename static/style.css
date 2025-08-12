@@ -336,10 +336,15 @@ hr {
 /* ===================
    タイルアイコンのスタイル
    =================== */
-   .tile-icon {
+.tile-icons { /* 複数のアイコンをまとめる親要素 */
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    gap: 5px; /* アイコン間のスペース */
+}
+
+.tile-icon { /* 個別のアイコン */
     width: 30px;
     height: 30px;
     background-color: rgba(0, 0, 0, 0.5);
@@ -349,7 +354,6 @@ hr {
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
-    font-weight: bold;
 }
 
 /* ===================
@@ -414,4 +418,17 @@ hr {
     border-radius: 4px;
     display: block;
     overflow: hidden; /* ★ これがスクロールバーを非表示にする現代的な方法です */
+}
+
+/* レシピページのヒントボックス */
+.tip-box {
+    background-color: #e7f3ff;
+    border-left: 5px solid #007bff;
+    margin: 1.5em 0;
+    padding: 0.5em 1.2em;
+    border-radius: 4px;
+}
+.tip-box h4 {
+    margin-top: 0.8em;
+    color: #0056b3;
 }

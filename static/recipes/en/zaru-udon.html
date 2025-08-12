@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaru Udon Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>Ingredients (for 1 serving)</h3>
+        <ul>
+            <li>Frozen udon noodle block: 1</li>
+            <li>Mentsuyu (noodle soup base, 3x concentrate): 50ml (approx. 3.4 tbsp)</li>
+            <li>Cold water: 100ml (approx. 0.42 US cups)</li>
+        </ul>
+        <h4>Favorite Condiments (Yakumi)</h4>
+        <ul>
+            <li>Chopped green onions</li>
+            <li>Grated ginger</li>
+            <li>Toasted sesame seeds</li>
+            <li>Shredded nori seaweed</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>
+                <strong>Boil the Udon:</strong> Bring a large pot of water to a boil. Cook the frozen udon according to the package instructions.
+            </li>
+            <li>
+                <strong>Chill the Udon:</strong> Drain the cooked udon in a colander. Rinse under cold running water to remove excess starch. Finally, plunge the noodles into a bowl of ice water for a few seconds to make them perfectly chewy, then drain well.
+                <p class="tip-box">Tip: This step is the most important for achieving the firm, chewy texture that is key to delicious zaru udon.</p>
+            </li>
+            <li>
+                <strong>Prepare the Dipping Sauce:</strong> In a small cup, mix the mentsuyu and cold water.
+            </li>
+            <li>
+                <strong>Serve:</strong> Place the chilled udon on a zaru (bamboo tray) or a plate. Serve with the dipping sauce and your favorite condiments on the side.
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        const sendHeight = () => {
+            // コンテンツの高さを計算して親ウィンドウに送信
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+
+        // ResizeObserverでコンテンツの高さの変更を監視
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        
+        // 親ウィンドウからリクエストがあった場合にも高さを送信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>

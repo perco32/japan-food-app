@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kake Soba Recipe</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; line-height: 1.6; }
+        .content-wrapper { padding: 1em; }
+        h3, h4 { margin-top: 1.5em; }
+        ul, ol { padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+        .tip-box { background-color: #f8f9fa; border-left: 5px solid #ccc; margin: 1.5em 0; padding: 0.5em 1.2em; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h3>Ingredients (for 1 serving)</h3>
+        <ul>
+            <li>Dried soba noodles: 100g (approx. 3.5 oz)</li>
+            <li>Mentsuyu (noodle soup base, 3x concentrate): 100ml (approx. 0.42 US cups)</li>
+            <li>Water: 300ml (approx. 1.25 US cups)</li>
+            <li>Optional toppings: Chopped green onions, etc.</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <ol>
+            <li>Bring a large pot of water to a boil. Cook the soba noodles according to package directions.</li>
+            <li>Drain the cooked soba in a colander and rinse under cold running water to remove excess starch.</li>
+            <li>In a separate small pot, combine the mentsuyu and water. Bring to a boil.</li>
+            <li>Place the rinsed soba noodles in a bowl (you can re-heat them quickly by pouring hot water over them if desired) and pour the hot broth over them. Garnish with toppings and serve immediately.</li>
+        </ol>
+
+        <div class="tip-box">
+            <h4>Arrangement & Topping Ideas</h4>
+            <p>Kake Soba serves as a base for many variations.</p>
+            <ul>
+                <li><strong>Tanuki Soba:</strong> Add a generous amount of tenkasu (crunchy tempura bits).</li>
+                <li><strong>Tempura Soba:</strong> Add your favorite tempura, especially shrimp tempura.</li>
+                <li><strong>Tsukimi Soba:</strong> Drop a raw egg yolk in the center to make "moon-viewing" soba.</li>
+                <li><strong>Wakame Soba:</strong> Add rehydrated wakame seaweed.</li>
+            d>
+        </ul>
+    </div>
+
+    <script>
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        const sendHeight = () => {
+            // コンテンツの高さを計算して親ウィンドウに送信
+            setTimeout(() => {
+                const height = contentWrapper.offsetHeight;
+                window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
+            }, 150);
+        };
+
+        // ResizeObserverでコンテンツの高さの変更を監視
+        const observer = new ResizeObserver(sendHeight);
+        if (contentWrapper) {
+            observer.observe(contentWrapper);
+        }
+        
+        // 親ウィンドウからリクエストがあった場合にも高さを送信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'requestHeight') {
+                sendHeight();
+            }
+        });
+    </script>
+</body>
+</html>
